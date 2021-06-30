@@ -29,8 +29,8 @@ def choose_coord(n_features, low_var=3, high_var=19, low_mean=6, high_mean=19, p
     return i_k
 
 
-def PRBCFB(A, b, x, lbda, max_iteration, max_it, i_k):
-    # max_iteration = shared_memory.ShareableList(name=max_iter.shm.name)
+def PRBCFB(A, b, x, lbda, max_iter, max_it, i_k):
+    max_iteration = shared_memory.ShareableList(name=max_iter.shm.name)
     # global max_iter
     A = np.asfortranarray(A)
     n, m = A.shape
@@ -62,5 +62,5 @@ def PRBCFB(A, b, x, lbda, max_iteration, max_it, i_k):
         #     print(max_iteration[0])
         #     raise IndexError
         fx[t] = lasso_loss(A, b, lbda, x)
-    # max_iteration.shm.close()
+    max_iteration.shm.close()
     return x, all_x, fx

@@ -30,7 +30,7 @@ lbda = lbda_max / 100
 x0 = np.zeros(m)
 
 if __name__ == '__main__':
-    max_iter = [max_it]#shared_memory.ShareableList([max_it])
+    max_iter = shared_memory.ShareableList([max_it])
     PROC_NUM = cpu_count()
     executors = concurrent.futures.ProcessPoolExecutor(PROC_NUM)
     list_of_processes = []
@@ -57,5 +57,5 @@ if __name__ == '__main__':
     plt.xlabel("Iteration (scaled for fair comparison)")
     plt.legend()
     plt.show(block=False)
-    # max_iter.shm.close()
-    # max_iter.shm.unlink()
+    max_iter.shm.close()
+    max_iter.shm.unlink()
