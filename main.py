@@ -1,10 +1,12 @@
-from asyn_prox_coord_desc import cd_lasso, lasso_loss, np, norm, shared_memory
+import numpy as np
+from numpy.linalg import norm
 from multiprocessing import cpu_count
 import concurrent
 from sklearn.linear_model import Lasso
 import matplotlib.pyplot as plt
 # import threading
 
+from asyn_prox_coord_desc import cd_lasso, lasso_loss, np, norm
 # have more readable plots with increased fontsize:
 fontsize = 16
 plt.rcParams.update({'axes.labelsize': fontsize,
