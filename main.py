@@ -42,8 +42,6 @@ def cd_concu(A, y, lbda):
         old_xi = x[i]
         neg_grad_i = A[:, i] @ R
         new = ST(x[i] + neg_grad_i / lc[i], lbda / lc[i])
-        # if max_iter <=0:
-        #     break
         x[i] = new
         R += A[:, i] * (old_xi - new)
         if t >= max_it:
