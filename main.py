@@ -1,9 +1,10 @@
 import threading
 import numpy as np
+import pickle
 from numpy.linalg import norm
 from multiprocessing import cpu_count
 
-from utils import ST, choose_coord, lasso_loss, save_object
+from utils import ST, choose_coord, lasso_loss
 
 from celer.datasets import make_correlated_data
 
@@ -57,4 +58,5 @@ for thread in threads:
 for thread in threads:
     thread.join()
 
-save_object([A, y, lbda, x, all_x, fx])
+with open("data_saved.pickle", "wb") as f:
+    pickle.dump([A, y, lbda, x, all_x, fx], f, protocol=pickle.HIGHEST_PROTOCOL)

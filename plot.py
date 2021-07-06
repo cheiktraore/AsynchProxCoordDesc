@@ -1,9 +1,11 @@
 import numpy as np
 from sklearn.linear_model import Lasso
 import matplotlib.pyplot as plt
-from utils import lasso_loss, load_object
+import pickle
+from utils import lasso_loss
 
-A, y, lbda, x, all_x, fx = load_object('data_save.pickle')
+with open("data_saved.pickle", "rb") as f:
+    A, y, lbda, x, all_x, fx = pickle.load(f) 
 clf = Lasso(alpha=lbda/len(y), fit_intercept=False,
             max_iter=20000, tol=1e-10)
 clf.fit(A, y)

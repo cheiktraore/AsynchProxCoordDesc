@@ -1,3 +1,5 @@
 __pycache__/
-data_save.pickle
+data_saved.pickle
+data_saved.mat
+save
 .DS_Store
