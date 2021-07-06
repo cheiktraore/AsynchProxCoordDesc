@@ -1,5 +1,4 @@
 import threading
-from numba.cuda import test
 import numpy as np
 from numpy.linalg import norm
 from multiprocessing import cpu_count

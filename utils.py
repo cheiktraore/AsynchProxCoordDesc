@@ -3,7 +3,7 @@ from numba import njit
 from numpy.linalg import norm
 import pickle
 
-# Functions save_object, load_object credited to https://www.askpython.com/python/examples/save-data-in-python.
+# Functions save_object, load_object are credited to https://www.askpython.com/python/examples/save-data-in-python.
 def save_object(obj):
     try:
         with open("data_save.pickle", "wb") as f:
