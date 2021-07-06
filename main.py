@@ -42,8 +42,8 @@ def cd_concu(A, y, lbda):
         old_xi = x[i]
         neg_grad_i = A[:, i] @ R
         new = ST(x[i] + neg_grad_i / lc[i], lbda / lc[i])
-        if max_iter <=0:
-            break
+        # if max_iter <=0:
+        #     break
         x[i] = new
         R += A[:, i] * (old_xi - new)
         if t >= max_it:
@@ -53,7 +53,7 @@ def cd_concu(A, y, lbda):
         t[0] += 1
         max_iter[0] -= 1
     if test_var[0] ==0:
-        test_var[0] += 0
+        test_var[0] += 1
         save_object([A, y, lbda, x, all_x, fx])
 
 threads = [threading.Thread(target=cd_concu, args=(A,y,lbda)) for _ in range(N_PROC)]
