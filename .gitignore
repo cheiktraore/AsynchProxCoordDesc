@@ -1,2 +1,3 @@
 __pycache__/
 data_save.pickle
+.DS_Store
