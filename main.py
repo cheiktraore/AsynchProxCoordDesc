@@ -23,7 +23,7 @@ lc = norm(A, axis=0) ** 2
 all_x = np.zeros((max_iter, m))
 fx = np.zeros(max_iter)
 t = 0
-test_var = 0
+# test_var = 0
 
 def cd_concu(A, y, lbda):
     global max_iter
@@ -33,7 +33,7 @@ def cd_concu(A, y, lbda):
     global all_x
     global t
     global max_it
-    global test_var
+    # global test_var
 
     while max_iter > 0:
         i = choose_coord(n_features=m)
@@ -48,9 +48,9 @@ def cd_concu(A, y, lbda):
         all_x[t] = x
         t += 1
         max_iter -= 1
-    if test_var == 0:
-        test_var += 1
-        save_object([A, y, lbda, x, all_x, fx])
+    # if test_var == 0:
+    #     test_var += 1
+    #     save_object([A, y, lbda, x, all_x, fx])
 
 
 threads = [threading.Thread(target=cd_concu, args=(A, y, lbda))
@@ -61,3 +61,5 @@ for thread in threads:
 
 for thread in threads:
     thread.join()
+
+save_object([A, y, lbda, x, all_x, fx])

@@ -5,7 +5,7 @@ from utils import lasso_loss, load_object
 
 A, y, lbda, x, all_x, fx = load_object('data_save.pickle')
 clf = Lasso(alpha=lbda/len(y), fit_intercept=False,
-            max_iter=10000, tol=1e-10)
+            max_iter=20000, tol=1e-10)
 clf.fit(A, y)
 f_star = lasso_loss(A, y, lbda, clf.coef_)
 
