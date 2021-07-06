@@ -1,11 +1,10 @@
 import threading
+from numba.cuda import test
 import numpy as np
 from numpy.linalg import norm
 from multiprocessing import cpu_count
-from sklearn.linear_model import Lasso
-import matplotlib.pyplot as plt
 
-from utils import ST, choose_coord, lasso_loss
+from utils import ST, choose_coord, lasso_loss, save_object
 
 from celer.datasets import make_correlated_data
 # from celer.utils import configure_plt
@@ -16,7 +15,6 @@ n, m, s = 50, 100, 5
 max_iter = np.array([60_000])
 max_it = max_iter[0]
 
-# A, y, x_true = make_correlated_data(100, 500, density=0.1, random_state=0)
 A, y, x_true = make_correlated_data(n, m, density=0.1, random_state=0)
 lbda_max = norm(A.T @ y, ord=np.inf)
 lbda = lbda_max / 100
@@ -28,6 +26,7 @@ lc = norm(A, axis=0) ** 2
 all_x = np.zeros((max_it, m))
 fx = np.zeros(max_it)
 t = np.array([0])
+test_var = np.array([0])
 
 # TODO maybe a closure and the threads are started inside
 def cd_concu(A, y, lbda):
@@ -38,6 +37,7 @@ def cd_concu(A, y, lbda):
     global all_x
     global t
     global max_it
+    global test_var
     while max_iter[0] > 0:
         i = choose_coord(n_features=m)
         old_xi = x[i]
@@ -53,6 +53,9 @@ def cd_concu(A, y, lbda):
         all_x[t[0]] = x
         t[0] += 1
         max_iter[0] -= 1
+    if test_var[0] ==0:
+        test_var[0] += 0
+        save_object([A, y, lbda, x, all_x, fx])
 
 threads = [threading.Thread(target=cd_concu, args=(A,y,lbda)) for _ in range(N_PROC)]
 

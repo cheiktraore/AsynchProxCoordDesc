@@ -1,7 +1,22 @@
 import numpy as np
 from numba import njit
 from numpy.linalg import norm
+import pickle
 
+# Functions save_object, load_object credited to https://www.askpython.com/python/examples/save-data-in-python.
+def save_object(obj):
+    try:
+        with open("data_save.pickle", "wb") as f:
+            pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
+    except Exception as ex:
+        print("Error during pickling object (Possibly unsupported):", ex)
+
+def load_object(filename):
+    try:
+        with open(filename, "rb") as f:
+            return pickle.load(f)
+    except Exception as ex:
+        print("Error during unpickling object (Possibly unsupported):", ex)
 
 @njit
 def ST(x, u):
@@ -18,10 +33,11 @@ def lasso_loss(A, b, lbda, x):
 
 
 def choose_coord(n_features, low_var=3, high_var=19, low_mean=6, high_mean=19,
-                 proc_nums=9):
+                 proc_nums=9, distr='uniform'):
     # sigma = np.random.randint(low_var,high_var)
     # mu = np.random.randint(low_mean,high_mean)
     # i_k = sigma * np.random.randn() + mu
     # i_k = np.int(np.floor(i_k) % proc_nums)
-    i_k = np.random.randint(n_features)
+    if distr == 'uniform'.strip():
+        i_k = np.random.randint(n_features)
     return i_k
