@@ -24,7 +24,7 @@ all_x = np.zeros((max_iter, m))
 fx = np.zeros(max_iter)
 t = 0
 
-def cd_concu(A, y, lbda):
+def asyn_prox_cd(A, y, lbda):
     global max_iter
     global x
     global R
@@ -48,7 +48,7 @@ def cd_concu(A, y, lbda):
         max_iter -= 1
 
 
-threads = [threading.Thread(target=cd_concu, args=(A, y, lbda))
+threads = [threading.Thread(target=asyn_prox_cd, args=(A, y, lbda))
            for _ in range(N_PROC)]
 
 for thread in threads:
