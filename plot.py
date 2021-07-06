@@ -11,7 +11,7 @@ f_star = lasso_loss(A, y, lbda, clf.coef_)
 
 plt.figure(constrained_layout=True)
 plt.semilogy(1 / A.shape[1] * np.arange(all_x.shape[0]), fx -
-                f_star, label=r"PRBCFB")
+                f_star, label=r"Prox_Coord_Desc")
 plt.ylabel("Distance to optimal objective")
 plt.xlabel("Iteration (scaled for fair comparison)")
 plt.legend()
