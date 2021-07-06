@@ -38,6 +38,6 @@ def choose_coord(n_features, low_var=3, high_var=19, low_mean=6, high_mean=19,
     # mu = np.random.randint(low_mean,high_mean)
     # i_k = sigma * np.random.randn() + mu
     # i_k = np.int(np.floor(i_k) % proc_nums)
-    if distr == 'uniform'.strip():
+    if distr == 'uniform':
         i_k = np.random.randint(n_features)
     return i_k
